@@ -26,12 +26,15 @@ namespace Combat
 
                 if (resultat.First().EsKo())
                 {
+                    System.Console.WriteLine($"\n\n GUANYA: {triats[1].Nom} \n\n");
                     _lluitadors.Add(triats[1]);
                 }
                 else
                 {
-                    _lluitadors.Add(triats[0]);
+                    System.Console.WriteLine($"\n\n GUANYA: {triats[0].Nom} \n\n");
+                    _lluitadors.Add(triats[0]);                    
                 }
+                
 
             }
             return _lluitadors.First().Nom;

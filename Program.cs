@@ -1,4 +1,10 @@
-﻿using System;
+﻿using CombatCavallers.Combat;
+using CombatCavallers.Lluitador;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using System;
+using System.Collections.Generic;
 
 namespace Combat
 {
@@ -6,7 +12,37 @@ namespace Combat
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // Obtenir el Ring per injecció de dependències
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var ring = serviceProvider.GetService<IRing>();
+
+
+            var lluitadors = new List<ILluitador> {
+                new LluitadorRandom("Totxo"),
+                new LluitadorRandom("Matxaca"),
+                new LluitadorRandom("DestrossaCervells"),
+                new LluitadorRandom("Guerrilleru")
+            };
+
+            // Tancar logger
+            serviceProvider.Dispose();
+
+            var eliminatoria = new Eliminatoria(ring, lluitadors);
+            Console.WriteLine($"GUANYA EL CAMPIONAT : {eliminatoria.Start()}");
+        }
+
+        private static void ConfigureServices(ServiceCollection serviceCollection)
+        {
+            serviceCollection.AddLogging(configure => configure.AddConsole(options =>
+            {
+                options.Format = ConsoleLoggerFormat.Systemd;
+            }))
+                .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information)
+                .AddTransient<IRing, Ring>();
+
         }
     }
 }
