@@ -3,7 +3,7 @@ using CombatCavallers.Lluitador;
 using CombatCavallers.Combat;
 using System.Linq;
 
-namespace Combat
+namespace Eliminatories
 {
     public class Eliminatoria
     {
