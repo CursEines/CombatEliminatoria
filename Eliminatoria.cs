@@ -26,7 +26,7 @@ namespace Eliminatories
                 _ring.EntradaLluitadors(triats[0], triats[1]);
                 var resultat = _ring.Lluiteu();
 
-                if (resultat.First().EsKo())
+                if (resultat.First().EsKo() || resultat.First().EstaEliminat())
                 {
                     System.Console.WriteLine($"\nGUANYA: {triats[1].Nom} \n");
                     _lluitadors.Add(triats[1]);
@@ -34,7 +34,7 @@ namespace Eliminatories
                 else
                 {
                     System.Console.WriteLine($"\nGUANYA: {triats[0].Nom} \n");
-                    _lluitadors.Add(triats[0]);                    
+                    _lluitadors.Add(triats[0]);
                 }
 
                 System.Console.WriteLine("--------------------------------------------");
